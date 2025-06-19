@@ -1,6 +1,7 @@
 #!/bin/python3
 
 import argparse
+import json
 import os
 import re
 
@@ -192,10 +193,10 @@ class ImportGlossary(BaseEssayConfig):
       if self.linkto:  
         for w in re.split(r'\W+', pali_term):
           s = pali_stem(w)
-          PALI_ROOT_TO_GLOSSARY_ITEM[s] = cur_file
+          PALI_ROOT_TO_GLOSSARY_ITEM[s] = str(cur_file)
           if s in OTHER_WORD_FORMS:
             for a in OTHER_WORD_FORMS[s]:
-              PALI_ROOT_TO_GLOSSARY_ITEM[a] = cur_file
+              PALI_ROOT_TO_GLOSSARY_ITEM[a] = str(cur_file)
       cur_file.write_text(f"""## By Ajahn Brahmali
 
 Source: <{self.url}#{pali_id}>
@@ -255,6 +256,11 @@ def main(output_dir:Path=Path('./Ajahn Brahmali')):
       print(f"ERROR Failed to generate {path}!")
       raise e
   print("  Done!")
+
+  ROOT_FOLDER.joinpath('glossary.json').write_text(
+    json.dumps(PALI_ROOT_TO_GLOSSARY_ITEM, indent=2)
+  )
+  print("  Wrote glossary.json to repo folder (regardless of output_dir)")
 
 if __name__ == '__main__':
   argparse = argparse.ArgumentParser(

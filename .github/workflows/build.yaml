@@ -16,21 +16,26 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python brahmali.py
       - run: zip -r brahmali.zip 'Ajahn Brahmali'
+      - name: Calculate Version
+        run: echo "::set-output name=version::0.${{ github.run_number }}.0"
+        id: version
       - name: Create VNM File
         run: |
           echo '{
             "folder": "Ajahn Brahmali",
             "more_info": "https://github.com/${{ github.repository }}",
-            "version": "v0.${{ github.run_number }}",
-            "zip": "https://github.com/obu-labs/brahmali-vinaya-notes/releases/download/v0.${{ github.run_number }}/brahmali.zip"
+            "version": "${{ steps.version.outputs.version }}",
+            "requires": {
+            },
+            "zip": "https://github.com/obu-labs/brahmali-vinaya-notes/releases/download/v${{ steps.version.outputs.version }}/brahmali.zip"
           }' > brahmali.vnm
       - name: Create Release
         id: release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.${{ github.run_number }}
+          tag_name: v${{ steps.version.outputs.version }}
           body: |
-            Release 0.${{ github.run_number }}
+            Release ${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
           files: |

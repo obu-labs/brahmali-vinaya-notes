@@ -15,7 +15,7 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: python brahmali.py
-      - run: zip -r brahmali.zip 'Ajahn Brahmali'
+      - run: cd 'Ajahn Brahmali' && zip -r ../brahmali.zip .
       - name: Calculate Version
         run: echo "::set-output name=version::0.${{ github.run_number }}.0"
         id: version

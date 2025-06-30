@@ -22,7 +22,7 @@ jobs:
         run: |
           echo '{
             "folder": "Ajahn Brahmali",
-            "description": "The Vinaya Notes included as Appendices in Ajahn Brahmali's translation of the Vinaya Piṭaka."
+            "description": "The Vinaya Notes included as Appendices in his translation of the Vinaya Piṭaka."
             "more_info": "https://github.com/${{ github.repository }}",
             "version": "${{ steps.version.outputs.version }}",
             "requires": {

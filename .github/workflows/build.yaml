@@ -14,7 +14,7 @@ jobs:
           python-version: '3.10'
       - run: pip install -r requirements.txt
       - run: python brahmali.py
-      - uses: obu-labs/vinaya-notes-module-releaser@0b5474d06ab3d3950927e0e46d50dcea35bf35fa
+      - uses: obu-labs/vinaya-notes-module-releaser@main
         id: releaser
         with:
           path: Ajahn Brahmali

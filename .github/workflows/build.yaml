@@ -16,13 +16,13 @@ jobs:
       - run: python brahmali.py
       - run: cd 'Ajahn Brahmali' && zip -r ../brahmali.zip .
       - name: Calculate Version
-        run: echo "::set-output name=version::0.${{ github.run_number }}.0"
+        run: echo "version=0.${{ github.run_number }}.0" >> $GITHUB_OUTPUT
         id: version
       - name: Create VNM File
         run: |
           echo '{
             "folder": "Ajahn Brahmali",
-            "description": "The Vinaya Notes included as Appendices in his translation of the Vinaya Piṭaka."
+            "description": "The Vinaya Notes included as Appendices in his translation of the Vinaya Piṭaka.",
             "more_info": "https://github.com/${{ github.repository }}",
             "version": "${{ steps.version.outputs.version }}",
             "requires": {

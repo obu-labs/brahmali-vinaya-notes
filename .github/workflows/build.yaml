@@ -14,31 +14,9 @@ jobs:
           python-version: '3.10'
       - run: pip install -r requirements.txt
       - run: python brahmali.py
-      - run: cd 'Ajahn Brahmali' && zip -r ../brahmali.zip .
-      - name: Calculate Version
-        run: echo "version=0.${{ github.run_number }}.0" >> $GITHUB_OUTPUT
-        id: version
-      - name: Create VNM File
-        run: |
-          echo '{
-            "folder": "Ajahn Brahmali",
-            "description": "The Vinaya Notes included as Appendices in his translation of the Vinaya Piṭaka.",
-            "more_info": "https://github.com/${{ github.repository }}",
-            "version": "${{ steps.version.outputs.version }}",
-            "requires": {
-            },
-            "zip": "https://github.com/obu-labs/brahmali-vinaya-notes/releases/download/v${{ steps.version.outputs.version }}/brahmali.zip"
-          }' > brahmali.vnm
-      - name: Create Release
-        id: release
-        uses: softprops/action-gh-release@v2
+      - uses: obu-labs/vinaya-notes-module-releaser@main
+        id: releaser
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          body: |
-            Release ${{ steps.version.outputs.version }}
-          draft: false
-          prerelease: false
-          files: |
-            brahmali.zip
-            glossary.json
-            brahmali.vnm
+          path: Ajahn Brahmali
+          metadata_file: metadata.yaml
+      - run: gh releases upload v${{ steps.releaser.outputs.version }} glossary.json

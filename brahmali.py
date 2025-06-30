@@ -101,7 +101,11 @@ class ImportEssay(BaseEssayConfig):
         next_link = f"## Next section: [{self.next.path.stem}](./{self.next.path.name.replace(' ', '%20')})"
       return self.path.write_text(f"""## By Ajahn Brahmali
 
-  Source: <{self.url}>{previous_link}{self.markdown}{next_link}
+Source: <{self.url}>{previous_link}
+
+{self.markdown}
+
+{next_link}
   """)
 
   def generate_files(self, vinaya_essay: str) -> None:
@@ -196,10 +200,15 @@ class ImportGlossary(BaseEssayConfig):
           if s in OTHER_WORD_FORMS:
             for a in OTHER_WORD_FORMS[s]:
               PALI_ROOT_TO_GLOSSARY_ITEM[a] = str(cur_file)
+      content = markdownify.markdownify(content)
+      if content.startswith(":   "):
+        content = content[4:]
       cur_file.write_text(f"""## By Ajahn Brahmali
 
 Source: <{self.url}#{pali_id}>
-{markdownify.markdownify(content)}""")
+
+{content}
+""")
 
 ESSAY_CONFIGS = {
  './matter/foreword.html': SkipEssay(),
@@ -227,6 +236,7 @@ for relpath, config in ESSAY_CONFIGS.items():
 TITLE_OVERRIDES = {
   "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/general-introduction?lang=en#origin": "Origin of the Vinaya",
   "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/general-introduction?lang=en#content": "Contents of the Vinaya",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/pvr-introduction?lang=en#pvr-1.12.16": "Pvr 1-2",
 }
 
 disk_memoizer = joblib.Memory(

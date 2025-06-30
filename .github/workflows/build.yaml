@@ -12,7 +12,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip'
       - run: pip install -r requirements.txt
       - run: python brahmali.py
       - run: cd 'Ajahn Brahmali' && zip -r ../brahmali.zip .
@@ -23,6 +22,7 @@ jobs:
         run: |
           echo '{
             "folder": "Ajahn Brahmali",
+            "description": "The Vinaya Notes included as Appendices in Ajahn Brahmali's translation of the Vinaya Piṭaka."
             "more_info": "https://github.com/${{ github.repository }}",
             "version": "${{ steps.version.outputs.version }}",
             "requires": {

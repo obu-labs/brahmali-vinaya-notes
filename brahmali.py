@@ -11,8 +11,7 @@ import bs4
 import joblib
 import requests
 import markdownify
-
-from paliutils import (
+from vnmutils.paliutils import (
   pali_stem,
 )
 

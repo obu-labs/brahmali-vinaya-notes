@@ -14,9 +14,14 @@ import markdownify
 from vnmutils.paliutils import (
   pali_stem,
 )
+from vnmutils.mdutils import (
+  SCUID_SEGMENT_PATHS,
+  rewrite_suttacentral_links_in_folder,
+)
 
 ROOT_FOLDER = Path(os.path.dirname(__file__))
 CACHE_FOLDER = ROOT_FOLDER.joinpath('.cache')
+SCIDMAP_FILE = ROOT_FOLDER.joinpath('scidmap.json')
 
 SC_API_URL = "https://suttacentral.net/api/publication/edition/pli-tv-vi-en-brahmali_scpub8-ed1-web_2022-02-10/files"
 
@@ -77,7 +82,11 @@ class ImportEssay(BaseEssayConfig):
     def __init__(self, path: Path, html: str, url: str, previous):
       self.path = path
       self.url = url
-      self.markdown = markdownify.markdownify(html)
+      # HACK to fix https://github.com/suttacentral/bilara-data/pull/4279
+      self.markdown = markdownify.markdownify(html).replace(
+        'https://suttacentral.nethttps://suttacentral.net',
+        'https://suttacentral.net'
+      )
       self.previous = previous
       self.next = None
       if previous:
@@ -249,6 +258,10 @@ def get_vinaya_essays() -> dict:
   return r.json()
 
 def main(output_dir:Path=Path('./Ajahn Brahmali')):
+  SCUID_SEGMENT_PATHS.load_data_from_json(
+    SCIDMAP_FILE.read_text(),
+    output_dir.parent,
+  )
   print("Generating Files from Ajahn Brahmali's Appendices...")
   vinaya_essays = get_vinaya_essays()
   for path, vinaya_essay in vinaya_essays.items():
@@ -270,6 +283,9 @@ def main(output_dir:Path=Path('./Ajahn Brahmali')):
     json.dumps(PALI_ROOT_TO_GLOSSARY_ITEM, indent=2)
   )
   print("  Wrote glossary.json to repo folder (regardless of output_dir)")
+
+  rewrite_suttacentral_links_in_folder(output_dir)
+  print("  Linked SuttaCentral URLs to local files")
 
 if __name__ == '__main__':
   argparse = argparse.ArgumentParser(

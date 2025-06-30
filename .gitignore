@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 Ajahn Brahmali/
 glossary.json
+scidmap.json
 .Python
 build/
 develop-eggs/

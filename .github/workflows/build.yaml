@@ -19,4 +19,4 @@ jobs:
         with:
           path: Ajahn Brahmali
           metadata_file: metadata.yaml
-      - run: gh releases upload v${{ steps.releaser.outputs.version }} glossary.json
+      - run: gh release upload v${{ steps.releaser.outputs.version }} glossary.json

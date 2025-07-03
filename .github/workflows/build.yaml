@@ -21,6 +21,8 @@ jobs:
         with:
           path: Ajahn Brahmali
           metadata_file: metadata.yaml
-      - run: gh release upload v${{ steps.releaser.outputs.version }} glossary.json
+      - run: |
+          gh release upload v${{ steps.releaser.outputs.version }} glossary.json
+          gh --repo obu-labs/vinaya workflow run build.yaml
         env:
           GH_TOKEN: ${{ github.token }}

@@ -212,7 +212,7 @@ class ImportGlossary(BaseEssayConfig):
       content = markdownify.markdownify(content)
       if content.startswith(":   "):
         content = content[4:]
-      cur_file.write_text(f"""## By Ajahn Brahmali
+      cur_file.write_text(f"""By Ajahn Brahmali
 
 Source: <{self.url}#{pali_id}>
 

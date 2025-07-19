@@ -246,6 +246,12 @@ TITLE_OVERRIDES = {
   "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/general-introduction?lang=en#origin": "Origin of the Vinaya",
   "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/general-introduction?lang=en#content": "Contents of the Vinaya",
   "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/pvr-introduction?lang=en#pvr-1.12.16": "Pvr 1-2",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bu-vb-2-introduction?lang=en#the-pācittiyas-pc": "The Bhikkhu Pācittiyas (Pc)",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bu-vb-2-introduction?lang=en#the-nissaggiya-pācittiyas-np": "The Bhikkhu Nissaggiya Pācittiyas (NP)",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bi-vb-introduction?lang=en#the-pācittiyas-pc": "The Bhikkhuni Pācittiyas (Pc)",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bi-vb-introduction?lang=en#the-pārājikas-pj": "The Bhikkhuni Pārājikas (Pj)",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bi-vb-introduction?lang=en#the-saṅghādisesas-ss": "The Bhikkhuni Saṅghādisesas (Ss)",
+  "https://suttacentral.net/edition/pli-tv-vi/en/brahmali/bi-vb-introduction?lang=en#the-nissaggiya-pācittiyas-np": "The Bhikkhuni Nissaggiya Pācittiyas (Np)",
 }
 
 disk_memoizer = joblib.Memory(
